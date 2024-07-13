@@ -10,28 +10,28 @@ const Sidebar = ({current,changecomponent}) => {
         <span className="text-2xl font-bold hover:cursor-pointer" onClick={()=>changecomponent("Home")}>Baksish.</span>
         <hr/>
       </div>
-      <div className="ml-5 mt-10">
-        <div className="flex items-center mb-10 hover:cursor-pointer hover:scale-95 duration-500" onClick={()=>changecomponent("Dashboard")}>
+      <div className="mt-10">
+        <div className="flex items-center mb-5 hover:cursor-pointer hover:scale-95 duration-500 hover:bg-white/10 py-2 px-3 rounded-full" onClick={()=>changecomponent("Dashboard")}>
           <Dashboard className="mr-3" />
           <span>Dashboard</span>
         </div>
-        <div className="flex items-center mb-10 hover:cursor-pointer hover:scale-95 duration-500" onClick={()=>changecomponent("Team")}>
+        <div className="flex items-center mb-5 hover:cursor-pointer hover:scale-95 duration-500 hover:bg-white/10 py-2 px-3 rounded-full" onClick={()=>changecomponent("Team")}>
           <Group className="mr-3" />
           <span>Teams</span>
         </div>
-        <div className="flex items-center mb-10 hover:cursor-pointer hover:scale-95 duration-500" onClick={()=>changecomponent("Booking")}>
+        <div className="flex items-center mb-5 hover:cursor-pointer hover:scale-95 duration-500 hover:bg-white/10 py-2 px-3 rounded-full" onClick={()=>changecomponent("Booking")}>
           <Bookmarks className="mr-3" />
           <span>New Request</span>
         </div>
-        <div className="flex items-center mb-10 hover:cursor-pointer hover:scale-95 duration-500" onClick={()=>changecomponent("Restaurants")}>
+        <div className="flex items-center mb-5 hover:cursor-pointer hover:scale-95 duration-500 hover:bg-white/10 py-2 px-3 rounded-full" onClick={()=>changecomponent("Restaurants")}>
           <Restaurant className="mr-3" />
           <span>Restaurants</span>
         </div>
-        <div className="flex items-center mb-10 hover:cursor-pointer hover:scale-95 duration-500" onClick={()=>changecomponent("Payment")}>
+        <div className="flex items-center mb-5 hover:cursor-pointer hover:scale-95 duration-500 hover:bg-white/10 py-2 px-3 rounded-full" onClick={()=>changecomponent("Payment")}>
           <Payment className="mr-3" />
           <span>Payments</span>
         </div>
-        <div className="flex items-center mb-10 hover:cursor-pointer hover:scale-95 duration-500" onClick={()=>changecomponent("Settings")}>
+        <div className="flex items-center mb-5 hover:cursor-pointer hover:scale-95 duration-500 hover:bg-white/10 py-2 px-3 rounded-full" onClick={()=>changecomponent("Settings")}>
           <Settings className="mr-3" />
           <span>Settings</span>
         </div>
