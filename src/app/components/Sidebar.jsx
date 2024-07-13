@@ -1,4 +1,4 @@
-import { Dashboard, Group, Payment, Restaurant, Settings, Create, Bookmarks } from '@mui/icons-material';
+import { Dashboard, Group, Payment, Restaurant, Settings, Create, Bookmarks, LogoutTwoTone } from '@mui/icons-material';
 import Image from 'next/image';
 // import logo from '../public/logo.svg';
 
@@ -37,11 +37,11 @@ const Sidebar = ({current,changecomponent}) => {
         </div>
 
       </div>
-      <div className="mt-auto sticky bottom-5 mx-auto">
-        {/* <div className="bg-white/30 backdrop-blur-sm p-3 rounded-lg flex items-center">
-          <Create className="" />
-          <span>Create Teams</span>
-        </div> */}
+      <div className="mt-auto sticky bottom-5 mx-auto hover:scale-95 duration-500">
+        <div className="bg-white/30 backdrop-blur-sm p-3 rounded-lg flex items-center hover:cursor-pointer">
+          <LogoutTwoTone className="" />
+          <span>Log Out</span>
+        </div>
       </div>
     </div>
   );
