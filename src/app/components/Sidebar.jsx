@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Sidebar = ({current,changecomponent}) => {
   return (
-    <div className="text-white bg-gradient-to-b from-[#0d5b528e] overflow-y-auto scrollbar-hidden  via-[#191920] max-h-screen h-screen flex flex-col  z-1 p-5 shadow-xl shadow-white/70">
+    <div className="text-white bg-gradient-to-b from-[#0d5b528e] overflow-y-auto scrollbar-hidden  via-[#191920] max-h-screen h-screen flex flex-col  z-1 p-5 w-1/5 shadow-xl shadow-white/70">
       <div className="text-center mb-10">
         {/* <Image src={logo} alt="logo" width={40} height={40} /> */}
         <span className="text-2xl font-bold hover:cursor-pointer" onClick={()=>changecomponent("Home")}>Baksish.</span>

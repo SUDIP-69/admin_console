@@ -17,7 +17,7 @@ export default function Home() {
     {/* <Bg/> */}
     <div className="flex max-h-screen">
       <Sidebar changecomponent={changecomponent} current={current} />
-      <div className="flex-grow flex bg-[#fff9ea] overflow-y-auto overflow-x-hidden flex-col">
+      <div className="bg-[#fff9ea] w-full overflow-y-auto overflow-x-hidden flex-col">
         <Header />
         <MainContent current={current} />
       </div>
