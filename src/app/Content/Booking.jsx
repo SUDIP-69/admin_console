@@ -9,7 +9,7 @@ const TableComponent = () => {
     {
       id: 1,
       date: '2024-07-13',
-      name: 'John Doe',
+      resturant_name: 'John Doe',
       email: 'john@example.com',
       phone: '123-456-7890',
       address: '123 Main St',
@@ -18,7 +18,7 @@ const TableComponent = () => {
     {
       id: 2,
       date: '2024-07-14',
-      name: 'Sudip',
+      resturant_name: 'Sudip',
       email: 'john@example.com',
       phone: '123-456-7890',
       address: '123 Main St',
@@ -37,7 +37,7 @@ const TableComponent = () => {
 
   const filteredData = data.filter((row) => {
     return (
-      row.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      row.resturant_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (activeFilter === 'All' || row.status === activeFilter)
     );
   });
@@ -83,7 +83,7 @@ const TableComponent = () => {
               <tr key={row.id} className='hover:bg-[#FFF0E3]'>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{index + 1}</td>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.date}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.name}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.resturant_name}</td>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.email}</td>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.phone}</td>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.address}</td>
