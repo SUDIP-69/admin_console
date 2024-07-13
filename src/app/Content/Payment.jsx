@@ -61,7 +61,7 @@ const RestaurantList = () => {
               <div className="text-sm text-black/30">ID: {row.id}</div>
             </div>
             <div className="text-left">
-              <div className="text-lime-500 text-sm">Total Payment: {row.total_payment}</div>
+              <div className="text-lime-600 text-sm">Total Payment: {row.total_payment}</div>
               <div className="text-rose-600 text-sm">Next Renewal: {row.renewal}</div>
             </div>
             <a className="text-blue-500 hover:underline text-2xl font-bold">
