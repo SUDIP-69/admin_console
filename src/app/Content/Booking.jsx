@@ -57,38 +57,38 @@ const TableComponent = () => {
             key={filter}
             onClick={() => handleFilterChange(filter)}
             className={`px-4 py-2 rounded-t-lg ${
-              activeFilter === filter ? 'bg-white text-black border-b-white border-t border-r border-l border-black' : 'bg-transparent border-none text-black'
+              activeFilter === filter ? 'bg-slate-300/30 text-blue-500 font-semibold' : 'bg-transparent border-none text-black'
             }`}
           >
             {filter}
           </button>
         ))}
       </div>
-      <div className="overflow-x-auto text-black -mt-[1.07rem] rounded-b-xl rounded-e-lg border border-black shadow-lg">
+      <div className="overflow-x-auto -mt-4 rounded-b-xl rounded-e-lg shadow-lg">
         <table className="min-w-full bg-transparent">
           <thead>
             <tr>
-              <th className="px-4 py-2 border-b bg-white">Sl No.</th>
-              <th className="px-4 py-2 border-b bg-white">Date</th>
-              <th className="px-4 py-2 border-b bg-white">Name</th>
-              <th className="px-4 py-2 border-b bg-white">Email</th>
-              <th className="px-4 py-2 border-b bg-white">Phone No.</th>
-              <th className="px-4 py-2 border-b bg-white">Address</th>
-              <th className="px-4 py-2 border-b bg-white">Status</th>
-              <th className="px-4 py-2 border-b bg-white">Action</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Sl No.</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Date</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Name</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Email</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Phone No.</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Address</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Status</th>
+              <th className="px-4 py-2 border-b bg-slate-600">Action</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((row, index) => (
-              <tr key={row.id}>
-                <td className="px-4 py-2 border-b">{index + 1}</td>
-                <td className="px-4 py-2 border-b">{row.date}</td>
-                <td className="px-4 py-2 border-b">{row.name}</td>
-                <td className="px-4 py-2 border-b">{row.email}</td>
-                <td className="px-4 py-2 border-b">{row.phone}</td>
-                <td className="px-4 py-2 border-b">{row.address}</td>
-                <td className="px-4 py-2 border-b">{row.status}</td>
-                <td className="px-4 py-5 border-b flex items-center justify-center gap-2">
+              <tr key={row.id} className='hover:bg-[#FFF0E3]'>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{index + 1}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.date}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.name}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.email}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.phone}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.address}</td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.status}</td>
+                <td className="px-4 py-5 text-zinc-600 border-b hover:cursor-pointer hover:font-medium flex items-center justify-center gap-2">
                   <span className="bg-transparent text-amber-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">Verify</span>
                   <span className="bg-transparent text-lime-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">Accept</span>
                   <span className="bg-transparent text-rose-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">Reject</span>
