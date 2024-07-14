@@ -9,7 +9,7 @@ import Signup from "../Content/Signup";
 import Team from "../Content/Team";
 import React, { useState } from "react";
 
-function MainContent({ current,searchquery }) {
+function MainContent({ current, searchquery }) {
   console.log(searchquery);
   const renderpage = () => {
     switch (current) {
@@ -50,7 +50,7 @@ function MainContent({ current,searchquery }) {
       case "Booking":
         return (
           <>
-            <Booking searchquery={searchquery}/>
+            <Booking searchquery={searchquery} />
           </>
         );
 

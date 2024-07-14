@@ -1,22 +1,42 @@
 // components/TableComponent.jsx
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+import { setasverifiedhandler, setrejectedhandler } from "../utils/utilityfunctions";
 
-const Booking = ({searchquery}) => {
+const Booking = ({ searchquery }) => {
   console.log(searchquery);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [data, setdata] = useState([]);
-  // fetch data from API
+  const handleVerifyClick = async (email) => {
+    const success = await setasverifiedhandler(email);
+    if (success) {
+      // Refetch the data from the server or update the status locally
+      setData(prevData => prevData.map(item => item.email === email ? { ...item, status: 'accepted' } : item));
+    }
+  };
+  const handleRejectClick = async (email) => {
+    const success = await setrejectedhandler(email, false);
+    if (success) {
+      // Refetch the data from the server or update the status locally
+      setData(prevData => prevData.map(item => item.email === email? {...item, status:'cancelled' } : item));
+    }
+  }
+
+  // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get("/api/getallrequests");
         console.log(data);
-        if (data.success) setdata(data?.data);
+        if (data.success) setData(data?.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -33,25 +53,23 @@ const Booking = ({searchquery}) => {
   const filteredData = data.filter((row) => {
     return (
       row.resturant_name.toLowerCase().includes(searchquery?.toLowerCase()) &&
-      (activeFilter === "All" || row.status === activeFilter)
+      (activeFilter === "all" || row.status === activeFilter)
     );
   });
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className=" border-black">
+    <div className="border-black">
+      <Toaster />
       <div className="mb-4 flex items-center">
-        {/* <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded-md mr-4"
-        /> */}
-        {["All", "Pending", "Verified", "Accepted"].map((filter) => (
+        {["all", "pending", "accepted","cancelled"].map((filter) => (
           <button
             key={filter}
             onClick={() => handleFilterChange(filter)}
-            className={`px-4 py-2 rounded-t-lg ${
+            className={`px-4 py-2 capitalize rounded-t-lg ${
               activeFilter === filter
                 ? "bg-slate-300/30 text-blue-500 font-semibold"
                 : "bg-transparent border-none text-black"
@@ -62,7 +80,7 @@ const Booking = ({searchquery}) => {
         ))}
       </div>
       <div className="overflow-x-auto -mt-4 rounded-b-xl rounded-e-lg shadow-lg">
-        <table className="min-w-full bg-transparent">
+        <table className="min-w-full bg-transparent border-spacing-y-2">
           <thead>
             <tr>
               <th className="px-4 py-2 border-b bg-slate-600">Sl No.</th>
@@ -77,37 +95,43 @@ const Booking = ({searchquery}) => {
           </thead>
           <tbody>
             {filteredData.map((row, index) => (
-              <tr key={row._id} className="hover:bg-[#FFF0E3]">
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+              <tr key={row._id} className="transition duration-200 bg-white/80">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {index + 1}
                 </td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
-                  {row.date}
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
+                  {new Date(row.createdAt).toDateString()}
                 </td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {row.resturant_name}
                 </td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {row.email}
                 </td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {row.phone}
                 </td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {row.address}
                 </td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {row.status}
                 </td>
-                <td className="px-4 py-5 text-zinc-600 border-b hover:cursor-pointer hover:font-medium flex items-center justify-center gap-2">
-                  <span className="bg-transparent text-amber-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">
-                    Verify
+                <td className="px-4 py-5 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500 flex items-center justify-center gap-2">
+                  
+                  <span
+                    onClick={() => handleVerifyClick(row.email)}
+                    className={` ${row.status==='accepted'?'text-white bg-lime-500':"bg-transparent text-lime-500 "} px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 transition-transform duration-200 ease-in-out`}
+                    aria-label="Accept"
+                  >
+                    {row.status==='accepted'?"Accepted":"Accept"}
                   </span>
-                  <span className="bg-transparent text-lime-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">
-                    Accept
-                  </span>
-                  <span className="bg-transparent text-rose-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">
-                    Reject
+                  <span
+                    onClick={() => handleRejectClick(row.email)}
+                    className={` ${row.status==='cancelled'?'text-white bg-rose-500':"bg-transparent text-rose-500 "} px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 transition-transform duration-200 ease-in-out`}
+                    aria-label="Accept"
+                  >
+                    {row.status==='cancelled'?"Rejected":"Reject"}
                   </span>
                 </td>
               </tr>
