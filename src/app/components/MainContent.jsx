@@ -5,6 +5,7 @@ import Home from "../Content/Home";
 import Payment from "../Content/Payment";
 import Restaurants from "../Content/Restaurants";
 import Settings from "../Content/Settings";
+import Signup from "../Content/Signup";
 import Team from "../Content/Team";
 import React, { useState } from "react";
 
@@ -45,30 +46,41 @@ function MainContent({ current }) {
           </>
         );
 
-        case "Booking":
-          return (
-            <>
-              <Booking/>
-            </>
-          );
+      case "Booking":
+        return (
+          <>
+            <Booking />
+          </>
+        );
 
-          case "Home":
-            return (
-              <>
-                <Home />
-              </>
-            );
+      case "Home":
+        return (
+          <>
+            <Home />
+          </>
+        );
+
+      case "Signup":
+        return (
+          <>
+            <Signup />
+          </>
+        );
 
       default:
-        return <><Home/></>;
+        return (
+          <>
+            <Home />
+          </>
+        );
     }
   };
 
   return (
-    <div className='bg-gradient-to-tl  from-[#f5c0023f] via-[#FFF9EA] h-screen'>
-    <div className=" h-screen  overflow-x-hidden overflow-y-auto ">
-      <div className="text-white   p-10">{renderpage()}</div>
-    </div>
+    <div className="bg-gradient-to-tl  from-[#f5c0023f] via-[#FFF9EA] h-screen">
+      <div className=" h-screen  overflow-x-hidden overflow-y-auto ">
+        <div className="text-white   p-10">{renderpage()}</div>
+      </div>
     </div>
   );
 }
