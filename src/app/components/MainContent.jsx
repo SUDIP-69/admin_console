@@ -65,9 +65,9 @@ function MainContent({ current }) {
   };
 
   return (
-    <div className='bg-gradient-to-tl from-[#f5c0023f] via-[#FFF9EA] h-screen'>
-    <div className=" h-screen">
-      <div className="text-white  p-10">{renderpage()}</div>
+    <div className='bg-gradient-to-tl  from-[#f5c0023f] via-[#FFF9EA] h-screen'>
+    <div className=" h-screen  overflow-x-hidden overflow-y-auto ">
+      <div className="text-white   p-10">{renderpage()}</div>
     </div>
     </div>
   );

@@ -1,31 +1,25 @@
 // components/TableComponent.jsx
-import { useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const TableComponent = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeFilter, setActiveFilter] = useState('All');
+const Booking = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const data = [
-    {
-      id: 1,
-      date: '2024-07-13',
-      resturant_name: 'John Doe',
-      email: 'john@example.com',
-      phone: '123-456-7890',
-      address: '123 Main St',
-      status: 'Pending',
-    },
-    {
-      id: 2,
-      date: '2024-07-14',
-      resturant_name: 'Sudip',
-      email: 'john@example.com',
-      phone: '123-456-7890',
-      address: '123 Main St',
-      status: 'Verified',
-    },
-    // Add more rows as needed
-  ];
+  const [data, setdata] = useState([]);
+  // fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("/api/getallrequests");
+        console.log(data);
+        if (data.success) setdata(data?.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -38,7 +32,7 @@ const TableComponent = () => {
   const filteredData = data.filter((row) => {
     return (
       row.resturant_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (activeFilter === 'All' || row.status === activeFilter)
+      (activeFilter === "All" || row.status === activeFilter)
     );
   });
 
@@ -52,12 +46,14 @@ const TableComponent = () => {
           onChange={handleSearchChange}
           className="p-2 border border-gray-300 rounded-md mr-4"
         /> */}
-        {['All', 'Pending', 'Verified', 'Accepted'].map((filter) => (
+        {["All", "Pending", "Verified", "Accepted"].map((filter) => (
           <button
             key={filter}
             onClick={() => handleFilterChange(filter)}
             className={`px-4 py-2 rounded-t-lg ${
-              activeFilter === filter ? 'bg-slate-300/30 text-blue-500 font-semibold' : 'bg-transparent border-none text-black'
+              activeFilter === filter
+                ? "bg-slate-300/30 text-blue-500 font-semibold"
+                : "bg-transparent border-none text-black"
             }`}
           >
             {filter}
@@ -80,18 +76,38 @@ const TableComponent = () => {
           </thead>
           <tbody>
             {filteredData.map((row, index) => (
-              <tr key={row.id} className='hover:bg-[#FFF0E3]'>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{index + 1}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.date}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.resturant_name}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.email}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.phone}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.address}</td>
-                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">{row.status}</td>
+              <tr key={row._id} className="hover:bg-[#FFF0E3]">
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {index + 1}
+                </td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {row.date}
+                </td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {row.resturant_name}
+                </td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {row.email}
+                </td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {row.phone}
+                </td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {row.address}
+                </td>
+                <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:font-medium">
+                  {row.status}
+                </td>
                 <td className="px-4 py-5 text-zinc-600 border-b hover:cursor-pointer hover:font-medium flex items-center justify-center gap-2">
-                  <span className="bg-transparent text-amber-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">Verify</span>
-                  <span className="bg-transparent text-lime-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">Accept</span>
-                  <span className="bg-transparent text-rose-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">Reject</span>
+                  <span className="bg-transparent text-amber-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">
+                    Verify
+                  </span>
+                  <span className="bg-transparent text-lime-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">
+                    Accept
+                  </span>
+                  <span className="bg-transparent text-rose-500 px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 duration-500">
+                    Reject
+                  </span>
                 </td>
               </tr>
             ))}
@@ -102,4 +118,4 @@ const TableComponent = () => {
   );
 };
 
-export default TableComponent;
+export default Booking;
