@@ -2,7 +2,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const Booking = () => {
+const Booking = ({searchquery}) => {
+  console.log(searchquery);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -31,7 +32,7 @@ const Booking = () => {
 
   const filteredData = data.filter((row) => {
     return (
-      row.resturant_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      row.resturant_name.toLowerCase().includes(searchquery?.toLowerCase()) &&
       (activeFilter === "All" || row.status === activeFilter)
     );
   });

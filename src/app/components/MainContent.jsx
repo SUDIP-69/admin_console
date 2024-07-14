@@ -9,7 +9,8 @@ import Signup from "../Content/Signup";
 import Team from "../Content/Team";
 import React, { useState } from "react";
 
-function MainContent({ current }) {
+function MainContent({ current,searchquery }) {
+  console.log(searchquery);
   const renderpage = () => {
     switch (current) {
       case "Dashboard":
@@ -49,7 +50,7 @@ function MainContent({ current }) {
       case "Booking":
         return (
           <>
-            <Booking />
+            <Booking searchquery={searchquery}/>
           </>
         );
 
@@ -79,7 +80,7 @@ function MainContent({ current }) {
   return (
     <div className="bg-gradient-to-tl  from-[#f5c0023f] via-[#FFF9EA] h-screen">
       <div className=" h-screen  overflow-x-hidden overflow-y-auto ">
-        <div className="text-white   p-10">{renderpage()}</div>
+        <div className="text-white  lg:mt-4 mt-10  p-10">{renderpage()}</div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+"use client"
 import {
   Dashboard,
   Group,
@@ -8,12 +9,11 @@ import {
   LogoutTwoTone,
   PlaylistAdd,
 } from "@mui/icons-material";
-import Image from "next/image";
 // import logo from '../public/logo.svg';
 
 const Sidebar = ({ current, changecomponent }) => {
   return (
-    <div className="text-white bg-gradient-to-b from-[#0d5b528e] overflow-y-auto scrollbar-hidden  via-[#191920] max-h-screen h-screen flex flex-col  z-1 p-5 w-1/5 shadow-xl shadow-white/70">
+    <div className="text-white bg-gradient-to-b from-[#0d5b528e] overflow-y-auto scrollbar-hidden  via-[#191920] max-h-screen h-screen flex flex-col  z-1 p-5 pb-0 w-1/5 shadow-xl shadow-white/70">
       <div className="text-center mb-10">
         <span
           className="text-2xl font-bold hover:cursor-pointer"
@@ -87,7 +87,7 @@ const Sidebar = ({ current, changecomponent }) => {
           <span>Settings</span>
         </div>
       </div>
-      <div className="mt-auto sticky bottom-5 mx-auto hover:scale-95 duration-500">
+      <div className="mt-auto sticky bottom-2 mx-auto hover:scale-95 duration-500">
         <div className="bg-white/30 backdrop-blur-sm p-3 rounded-lg flex items-center hover:cursor-pointer">
           <LogoutTwoTone className="" />
           <span>Log Out</span>
