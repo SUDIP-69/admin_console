@@ -64,7 +64,7 @@ function MainContent({ current, searchquery }) {
       case "Signup":
         return (
           <>
-            <Signup />
+            <Signup searchquery={searchquery}/>
           </>
         );
 

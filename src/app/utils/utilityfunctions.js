@@ -37,3 +37,23 @@ export const setrejectedhandler = async (email) => {
     return false;
   }
 }
+
+
+export const setasverifiedhandlersignup = async (email) => {
+  const toastId = toast.loading('Sending email...');
+  try {
+    const { data } = await axios.post("/api/marksignupverified", { email });
+    console.log(data);
+    if (data.success) {
+      toast.success('Email sent successfully!', { id: toastId });
+      return true;
+    } else {
+      toast.error('Failed to send email.', { id: toastId });
+      return false;
+    }
+  } catch (err) {
+    console.error("Error sending email:", err);
+    toast.error('Error sending email.', { id: toastId });
+    return false;
+  }
+};

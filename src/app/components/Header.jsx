@@ -8,7 +8,7 @@ const Header = ({forwardsearchquery}) => {
   };
 
   return (
-    <div className="flex hover:cursor-pointer w-fit fixed right-6 top-1 justify-end p-4 bg-transparent text-white ">
+    <div className="flex hover:cursor-pointer w-fit absolute right-6 top-1 justify-end p-4 bg-transparent text-white ">
       <input
         type="text"
         onChange={handlechange}
