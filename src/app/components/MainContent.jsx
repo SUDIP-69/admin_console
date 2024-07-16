@@ -78,7 +78,7 @@ function MainContent({ current, searchquery }) {
   };
 
   return (
-    <div className="bg-gradient-to-tl  from-[#f5c0023f] via-[#FFF9EA] h-screen">
+    <div className="bg-gradient-to-tl  from-[#fcf6e13f] via-[#FFF9EA] h-screen">
       <div className=" h-screen  overflow-x-hidden overflow-y-auto ">
         <div className="text-white  lg:mt-4 mt-10  p-10">{renderpage()}</div>
       </div>

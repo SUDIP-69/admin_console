@@ -13,7 +13,7 @@ import {
 
 const Sidebar = ({ current, changecomponent }) => {
   return (
-    <div className="text-white bg-gradient-to-b from-[#0d5b528e] overflow-y-auto scrollbar-hidden  via-[#191920] max-h-screen h-screen flex flex-col  z-1 p-5 pb-0 w-1/5 shadow-xl shadow-white/70">
+    <div className="text-white bg-gradient-to-b from-[#0d5b528e] overflow-y-auto scrollbar-hidden  via-[#191920] max-h-screen h-screen flex flex-col  z-1 p-5 pb-0 lg:w-1/5 shadow-xl shadow-white/70">
       <div className="text-center mb-10">
         <span
           className="text-2xl font-bold hover:cursor-pointer"

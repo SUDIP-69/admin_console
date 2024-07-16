@@ -11,14 +11,22 @@ const Booking = ({ searchquery }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const handleVerifyClick = async (email) => {
+  const handleVerifyClick = async (status,email) => {
+    if(status === 'accepted') {
+      toast.error('Cannot accept a accepted  request');
+      return;
+    }
     const success = await setasverifiedhandler(email);
     if (success) {
       // Refetch the data from the server or update the status locally
       setData(prevData => prevData.map(item => item.email === email ? { ...item, status: 'accepted' } : item));
     }
   };
-  const handleRejectClick = async (email) => {
+  const handleRejectClick = async (status,email) => {
+    if(status === 'cancelled') {
+      toast.error('Cannot reject a cancelled request');
+      return;
+    }
     const success = await setrejectedhandler(email, false);
     if (success) {
       // Refetch the data from the server or update the status locally
@@ -52,18 +60,27 @@ const Booking = ({ searchquery }) => {
 
   const filteredData = data.filter((row) => {
     return (
-      row.resturant_name.toLowerCase().includes(searchquery?.toLowerCase()) &&
+      row.restaurant_name.toLowerCase().includes(searchquery?.toLowerCase()) &&
       (activeFilter === "all" || row.status === activeFilter)
     );
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center mt-44"><span className="loader"></span></div>;
   }
 
   return (
+    <>
+    <Toaster
+        position="bottom-left"
+        toastOptions={{
+          style: {
+            zIndex: 9999,
+          },
+        }}
+      />
     <div className="border-black">
-      <Toaster />
+    
       <div className="mb-4 flex items-center">
         {["all", "pending", "accepted","cancelled"].map((filter) => (
           <button
@@ -103,7 +120,7 @@ const Booking = ({ searchquery }) => {
                   {new Date(row.createdAt).toDateString()}
                 </td>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
-                  {row.resturant_name}
+                  {row.restaurant_name}
                 </td>
                 <td className="px-4 py-2 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500">
                   {row.email}
@@ -120,14 +137,14 @@ const Booking = ({ searchquery }) => {
                 <td className="px-4 py-5 text-zinc-600 border-b hover:cursor-pointer hover:scale-95 duration-500 flex items-center justify-center gap-2">
                   
                   <span
-                    onClick={() => handleVerifyClick(row.email)}
+                    onClick={() => handleVerifyClick(row.status,row.email)}
                     className={` ${row.status==='accepted'?'text-white bg-lime-500':"bg-transparent text-lime-500 "} px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 transition-transform duration-200 ease-in-out`}
                     aria-label="Accept"
                   >
                     {row.status==='accepted'?"Accepted":"Accept"}
                   </span>
                   <span
-                    onClick={() => handleRejectClick(row.email)}
+                    onClick={() => handleRejectClick(row.status,row.email)}
                     className={` ${row.status==='cancelled'?'text-white bg-rose-500':"bg-transparent text-rose-500 "} px-2 py-1 cursor-pointer border-2 rounded-full text-sm hover:scale-110 transition-transform duration-200 ease-in-out`}
                     aria-label="Accept"
                   >
@@ -139,7 +156,7 @@ const Booking = ({ searchquery }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </div></>
   );
 };
 

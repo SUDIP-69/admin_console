@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema(
   {
-    resturant_name: {
+    restaurant_name: {
       type: String,
       required: true,
     },
