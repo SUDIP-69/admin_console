@@ -1,39 +1,43 @@
-"use client"
-import React, { useState } from 'react'
-import '@fontsource/poppins';
-import vectorSrc from '../../public/giphy1.webp'
-import Image from 'next/image';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-
-// Static credentials
-const staticCredentials = {
-  username: 'sudip123',
-  password: 'Sudip@2311',
-};
+"use client";
+import React, { useState } from "react";
+// import "@fontsource/poppins";
+import vectorSrc from "../../public/giphy1.webp";
+import Image from "next/image";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 function Page() {
-  const [formValues, setFormValues] = useState({ username: '', password: '' });
+  const [formValues, setFormValues] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
   const router = useRouter();
 
   const validate = () => {
     const errors = {};
-    if (formValues.username !== staticCredentials.username) {
-      errors.username = 'Invalid username';
+    if (!formValues.username) {
+      errors.username = "Username is required";
     }
-    if (formValues.password !== staticCredentials.password) {
-      errors.password = 'Invalid password';
+    if (!formValues.password) {
+      errors.password = "Password is required";
     }
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validate();
     if (Object.keys(errors).length === 0) {
-      toast.success('Successfully signed in!');
-      router.push('/AdminDashboard');
+      try {
+        const response = await axios.post("/api/signin", formValues);
+        toast.success(response.data.message);
+        router.push("/AdminDashboard");
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          setErrors({ general: "Invalid username or password" });
+        } else {
+          toast.error("An error occurred. Please try again.");
+        }
+      }
     } else {
       setErrors(errors);
     }
@@ -43,7 +47,7 @@ function Page() {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -51,13 +55,14 @@ function Page() {
     <>
       <div className="h-screen bg-gradient-to-br from-[#0d5b528e] via-slate-900 to-black flex items-center justify-center flex-col">
         <div>
-          <p className='text-[#FFF9EA] font-bold text-5xl pb-5'>BakSiSH .</p>
+          <p className="text-[#FFF9EA] font-bold text-5xl pb-5">BakSiSH .</p>
         </div>
         <div className="bg-white/10 p-8 rounded-lg shadow-lg flex w-[70%]">
           <div className="w-1/2 pr-8">
             <h2 className="text-3xl font-bold text-white">Sign in to Admin Console</h2>
             <p className="text-gray-400 mb-8">to continue to your account</p>
             <form onSubmit={handleSubmit}>
+              {errors.general && <div className="text-red-500 text-sm mb-4">{errors.general}</div>}
               <div className="mb-4">
                 <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="username">
                   Username or email address
@@ -97,12 +102,12 @@ function Page() {
             </form>
           </div>
           <div className="w-1/2 flex items-center justify-center">
-            <Image src={vectorSrc} alt="a nice vector" className="w-[50rem] mix-blend-darken"/>
+            <Image src={vectorSrc} alt="a nice vector" className="w-[50rem] mix-blend-darken" />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Page
+export default Page;
